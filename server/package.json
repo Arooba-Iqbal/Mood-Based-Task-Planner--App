@@ -1,0 +1,19 @@
+{
+  "name": "daily-life-organizer-server",
+  "version": "1.0.0",
+  "description": "Backend API for Daily Life Organizer with Mood Tracking",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.6.3",
+    "pdfkit": "^0.15.0"
+  }
+}
