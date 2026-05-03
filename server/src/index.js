@@ -15,8 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 //app.use(cors());
 app.use(cors({
-  origin: "*", // later restrict to Vercel domain
-  credentials: true
+  origin: "*"
 }));
 app.use(express.json());
 
