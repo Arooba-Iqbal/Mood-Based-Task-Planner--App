@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-const SiteLayout = () => {
+const SiteLayout = ({ user, onLogout }) => {
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -19,6 +19,12 @@ const SiteLayout = () => {
             <NavLink to="/dashboard">Dashboard</NavLink>
             <NavLink to="/reports">Reports</NavLink>
           </nav>
+          <div className="header-user">
+            <span>{user?.name}</span>
+            <button type="button" className="ghost logout-btn" onClick={onLogout}>
+              Logout
+            </button>
+          </div>
         </div>
       </header>
 

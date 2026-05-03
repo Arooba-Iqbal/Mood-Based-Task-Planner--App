@@ -13,12 +13,16 @@ export const getWeeklyPdfReport = async (req, res) => {
 
   const [tasks, moods] = await Promise.all([
     Task.find({
+      user: req.user._id,
       $or: [
         { createdAt: { $gte: startDate.toDate(), $lte: endDate.toDate() } },
         { updatedAt: { $gte: startDate.toDate(), $lte: endDate.toDate() } }
       ]
     }).sort({ createdAt: -1 }),
-    MoodEntry.find({ date: { $gte: startDate.toDate(), $lte: endDate.toDate() } }).sort({ date: 1 })
+    MoodEntry.find({
+      user: req.user._id,
+      date: { $gte: startDate.toDate(), $lte: endDate.toDate() }
+    }).sort({ date: 1 })
   ]);
 
   const stats = buildWeeklyStats(tasks, moods, startDate.toDate());
@@ -32,6 +36,7 @@ export const getWeeklyPdfReport = async (req, res) => {
   doc.fontSize(20).text("Daily Life Organizer - Weekly Report", { align: "center" });
   doc.moveDown();
   doc.fontSize(12).text(`Period: ${stats.period}`);
+  doc.text(`Generated for: ${req.user.name} (${req.user.email})`);
   doc.text(`Tasks created: ${stats.createdThisWeek}`);
   doc.text(`Tasks completed: ${stats.completedThisWeek}`);
   doc.text(`Productivity score: ${stats.productivityScore}%`);

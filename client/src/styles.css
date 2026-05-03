@@ -84,6 +84,13 @@ body {
   gap: 8px;
 }
 
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
 .main-nav a {
   text-decoration: none;
   color: var(--muted);
@@ -140,10 +147,11 @@ body {
 }
 
 .hero > div {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 24px;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25);
 }
 
 .hero h2 {
@@ -158,6 +166,16 @@ body {
 
 .hero-card {
   background: linear-gradient(160deg, rgba(109, 123, 255, 0.2), rgba(0, 212, 255, 0.1));
+}
+
+.welcome-chip {
+  display: inline-flex;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: rgba(0, 212, 255, 0.18);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  font-size: 0.85rem;
 }
 
 .hero-actions {
@@ -202,6 +220,39 @@ body {
   margin-bottom: 0;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.auth-page {
+  min-height: calc(100vh - 170px);
+  place-items: center;
+}
+
+.auth-card {
+  width: min(520px, 100%);
+  padding: 26px;
+  border: 1px solid rgba(109, 123, 255, 0.4);
+  background: linear-gradient(155deg, rgba(109, 123, 255, 0.2), rgba(31, 36, 64, 0.9));
+}
+
+.auth-card h2 {
+  margin: 0 0 8px;
+}
+
+.auth-card p {
+  color: var(--muted);
+}
+
+.auth-switch {
+  margin: 10px 0 0;
+}
+
+.auth-switch a {
+  color: var(--accent-2);
+}
+
+.error-text {
+  color: #ff9da9;
+  margin: 8px 0 4px;
 }
 
 .card h3 {
@@ -257,6 +308,10 @@ button {
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: transparent;
+}
+
+.logout-btn {
+  padding: 7px 11px;
 }
 
 .danger {
@@ -362,5 +417,10 @@ button {
     align-items: flex-start;
     justify-content: center;
     padding: 12px 0;
+  }
+
+  .header-user {
+    width: 100%;
+    justify-content: space-between;
   }
 }

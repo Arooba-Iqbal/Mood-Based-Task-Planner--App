@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import connectDb from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
 import moodRoutes from "./routes/moodRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
@@ -19,6 +20,7 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/moods", moodRoutes);
 app.use("/api/reports", reportRoutes);

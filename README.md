@@ -12,12 +12,14 @@ Full-stack project where users manage daily tasks and log mood in one place.
 
 ## Features
 
-- Multi-page UI (Home, Tasks, Mood, Dashboard, Reports) with header and footer
-- Task management (CRUD)
-- Daily mood tracking (happy, sad, stressed)
+- JWT auth (signup/login) with private user profiles
+- Per-user data isolation (each account only sees its own tasks, moods, and reports)
+- Multi-page UI (Home, Tasks, Mood, Dashboard, Reports) with modern responsive styling
+- Task management (CRUD) per user
+- Daily mood tracking (happy, sad, stressed) per user
 - Dashboard with mood and productivity metrics
 - AI-style daily suggestion endpoint based on mood and pending tasks
-- Weekly PDF report download
+- Weekly PDF report download scoped to the logged-in user
 
 ## Project Structure
 
@@ -83,3 +85,6 @@ Backend: `http://localhost:5000`
 - `GET /api/moods/dashboard`
 - `GET /api/moods/suggestions/today`
 - `GET /api/reports/weekly`
+- `POST /api/auth/signup`
+- `POST /api/auth/login`
+- `GET /api/auth/me`

@@ -5,9 +5,11 @@ import {
   getMoodEntries,
   upsertMoodForDate
 } from "../controllers/moodController.js";
+import protect from "../middleware/authMiddleware.js";
 
 const router = Router();
 
+router.use(protect);
 router.get("/", getMoodEntries);
 router.post("/", upsertMoodForDate);
 router.get("/dashboard", getDashboard);

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 
-const HomePage = ({ dashboard, suggestion }) => {
+const HomePage = ({ dashboard, suggestion, user }) => {
   return (
     <section className="container page">
       <div className="hero">
         <div>
+          <span className="welcome-chip">Hi, {user?.name || "there"}!</span>
           <h2>Organize your life with emotional intelligence</h2>
           <p>
             Manage tasks, log your mood, and get smart suggestions that help you stay productive

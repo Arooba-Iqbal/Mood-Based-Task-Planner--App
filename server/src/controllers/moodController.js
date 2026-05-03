@@ -12,29 +12,34 @@ export const upsertMoodForDate = async (req, res) => {
   const normalizedDate = dayjs(date).startOf("day").toDate();
 
   const moodEntry = await MoodEntry.findOneAndUpdate(
-    { date: normalizedDate },
-    { mood, notes, date: normalizedDate },
+    { user: req.user._id, date: normalizedDate },
+    { user: req.user._id, mood, notes, date: normalizedDate },
     { new: true, upsert: true, runValidators: true }
   );
 
   return res.status(201).json(moodEntry);
 };
 
-export const getMoodEntries = async (_req, res) => {
-  const entries = await MoodEntry.find().sort({ date: -1 });
+export const getMoodEntries = async (req, res) => {
+  const entries = await MoodEntry.find({ user: req.user._id }).sort({ date: -1 });
   res.json(entries);
 };
 
-export const getDashboard = async (_req, res) => {
+export const getDashboard = async (req, res) => {
   const [totalTasks, completedTasks, latestMood] = await Promise.all([
-    Task.countDocuments(),
-    Task.countDocuments({ completed: true }),
-    MoodEntry.findOne().sort({ date: -1 })
+    Task.countDocuments({ user: req.user._id }),
+    Task.countDocuments({ user: req.user._id, completed: true }),
+    MoodEntry.findOne({ user: req.user._id }).sort({ date: -1 })
   ]);
 
   const completionRate = totalTasks ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   const moodCounts = await MoodEntry.aggregate([
+    {
+      $match: {
+        user: req.user._id
+      }
+    },
     {
       $group: {
         _id: "$mood",
@@ -52,10 +57,10 @@ export const getDashboard = async (_req, res) => {
   });
 };
 
-export const getDailySuggestion = async (_req, res) => {
+export const getDailySuggestion = async (req, res) => {
   const [latestMood, pendingTasks] = await Promise.all([
-    MoodEntry.findOne().sort({ date: -1 }),
-    Task.countDocuments({ completed: false })
+    MoodEntry.findOne({ user: req.user._id }).sort({ date: -1 }),
+    Task.countDocuments({ user: req.user._id, completed: false })
   ]);
 
   if (!latestMood) {
