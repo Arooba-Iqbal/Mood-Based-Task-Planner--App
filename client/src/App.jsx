@@ -60,7 +60,7 @@ const App = () => {
   };
 
   const handleSecureDownloadWeeklyReport = async () => {
-    const response = await fetch("http://localhost:5000/api/reports/weekly", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/reports/weekly`, {
       headers: {
         Authorization: `Bearer ${auth.token}`
       }
