@@ -1,20 +1,8 @@
 import axios from "axios";
 
-const trimTrailingSlash = (url) => url.replace(/\/$/, "");
-
-const resolveBaseURL = () => {
-  const fromEnv = import.meta.env.VITE_API_URL;
-  if (fromEnv) {
-    return trimTrailingSlash(fromEnv);
-  }
-  if (import.meta.env.DEV) {
-    return "http://localhost:5000/api";
-  }
-  return `${window.location.origin}/api`;
-};
-
 const api = axios.create({
-  baseURL: resolveBaseURL()
+  //baseURL: "http://localhost:5000/api"
+  baseURL: "https://mood-based-task-planner-app-vn8o.vercel.app/api"
 });
 
 api.interceptors.request.use((config) => {
