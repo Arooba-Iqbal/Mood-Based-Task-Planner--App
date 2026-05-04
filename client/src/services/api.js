@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 const api = axios.create({
-  baseURL: `${apiBase}/api`
+  //baseURL: "http://localhost:5000/api"
+  baseURL: "https://mood-based-task-planner-app-vn8o.vercel.app/api"
 });
 
 api.interceptors.request.use((config) => {
