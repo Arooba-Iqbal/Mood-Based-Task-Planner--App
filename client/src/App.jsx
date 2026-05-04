@@ -13,6 +13,7 @@ import MoodPage from "./pages/MoodPage";
 import ReportsPage from "./pages/ReportsPage";
 import SignupPage from "./pages/SignupPage";
 import TasksPage from "./pages/TasksPage";
+import api from "./services/api";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -60,23 +61,17 @@ const App = () => {
   };
 
   const handleSecureDownloadWeeklyReport = async () => {
-    const response = await fetch("http://localhost:5000/api/reports/weekly", {
-      headers: {
-        Authorization: `Bearer ${auth.token}`
-      }
-    });
-
-    if (!response.ok) {
-      return;
+    try {
+      const { data } = await api.get("/reports/weekly", { responseType: "blob" });
+      const url = URL.createObjectURL(data);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "weekly-report.pdf";
+      anchor.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      // Network or auth failure; axios interceptor / UI can be extended later
     }
-
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = "weekly-report.pdf";
-    anchor.click();
-    URL.revokeObjectURL(url);
   };
 
   const handleLogout = () => {
